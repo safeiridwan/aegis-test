@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<ResponseAPI> getListUser() {
+    public ResponseEntity<ResponseAPI> listUser() {
         List<DetailUserResponse> res = userRepository.findAll()
                 .stream()
                 .map(DetailUserResponse::new)
