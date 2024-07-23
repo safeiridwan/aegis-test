@@ -21,4 +21,9 @@ public class AuthController {
     public ResponseEntity<ResponseAPI> login(@Valid @RequestBody LoginRequest request) {
         return service.login(request);
     }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<ResponseAPI> resetPassword() {
+        return service.resetPassword();
+    }
 }
