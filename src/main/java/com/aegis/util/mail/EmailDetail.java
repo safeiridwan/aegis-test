@@ -15,7 +15,7 @@ public class EmailDetail {
 
     }
 
-    public EmailDetail(String message) {
+    public EmailDetail(String recipient, String message) {
         this.msgBody = message;
         this.subject = "no-reply";
     }

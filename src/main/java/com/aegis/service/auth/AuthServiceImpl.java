@@ -71,7 +71,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
         user.setPassword(bCryptPasswordEncoder.encode(password));
         userRepository.save(user);
 
-        EmailDetail mail = new EmailDetail(password);
+        EmailDetail mail = new EmailDetail(user.getEmail(), password);
         mailUtil.send(mail);
 
         return new ResponseEntity<>(new ResponseAPI(200, OK, null, null), HttpStatus.OK);

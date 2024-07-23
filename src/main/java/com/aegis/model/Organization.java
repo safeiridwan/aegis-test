@@ -18,6 +18,6 @@ public class Organization {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "created_by", referencedColumnName = "user_id")
     private User createdBy;
 }

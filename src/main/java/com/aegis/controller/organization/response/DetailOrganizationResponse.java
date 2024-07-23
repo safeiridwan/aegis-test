@@ -11,6 +11,7 @@ public class DetailOrganizationResponse {
     private String id;
     private String name;
     private String description;
+    private String createdBy;
 
     public DetailOrganizationResponse() {
     }
@@ -19,5 +20,6 @@ public class DetailOrganizationResponse {
         this.id = entity.getId();
         this.name = entity.getName();
         this.description = entity.getDescription();
+        this.createdBy = entity.getCreatedBy() != null ? entity.getCreatedBy().getFullName() : null;
     }
 }

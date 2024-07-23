@@ -24,7 +24,7 @@ public class SeedData implements CommandLineRunner {
         if (list.isEmpty()) {
             User user = new User();
             user.setUserId(UUID.randomUUID().toString());
-            user.setEmail("safeiridwan06@gmail.com");
+            user.setEmail("ahmadsafei.ridwan@gmail.com");
             user.setPassword(bCryptPasswordEncoder.encode("1111"));
             user.setRole(SUPER_ADMIN_ROLE);
             userRepository.save(user);
