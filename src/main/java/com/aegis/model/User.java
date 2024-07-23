@@ -1,12 +1,12 @@
 package com.aegis.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Date;
+import static com.aegis.util.constant.Constant.*;
 
 @Getter
 @Setter
@@ -22,4 +22,13 @@ public class User {
     private String password;
     @Column(name = "full_name")
     private String fullname;
+    @Column(name = "role")
+    private String role;
+
+    @PrePersist
+    public void prePersist() {
+        if (this.role == null || this.role.isEmpty()) {
+            this.role = USER_ROLE;
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package com.aegis.service;
+package com.aegis.service.auth;
 
 import com.aegis.controller.auth.request.LoginRequest;
 import com.aegis.response.ResponseAPI;

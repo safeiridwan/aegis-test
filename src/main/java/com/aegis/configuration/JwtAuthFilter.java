@@ -1,6 +1,6 @@
 package com.aegis.configuration;
 
-import com.aegis.service.AuthServiceImpl;
+import com.aegis.service.auth.AuthServiceImpl;
 import com.aegis.util.JwtHelperUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

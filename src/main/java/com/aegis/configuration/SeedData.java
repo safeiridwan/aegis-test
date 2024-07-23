@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.UUID;
 
+import static com.aegis.util.constant.Constant.SUPER_ADMIN_ROLE;
+
 @Component
 @RequiredArgsConstructor
 public class SeedData implements CommandLineRunner {
@@ -24,6 +26,7 @@ public class SeedData implements CommandLineRunner {
             user.setUserId(UUID.randomUUID().toString());
             user.setEmail("safeiridwan06@gmail.com");
             user.setPassword(bCryptPasswordEncoder.encode("1111"));
+            user.setRole(SUPER_ADMIN_ROLE);
             userRepository.save(user);
         }
     }
