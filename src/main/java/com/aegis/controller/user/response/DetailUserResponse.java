@@ -18,7 +18,7 @@ public class DetailUserResponse {
     public DetailUserResponse(User user) {
         this.userId = user.getUserId();
         this.email = user.getEmail();
-        this.fullName = user.getFullname();
+        this.fullName = user.getFullName();
         this.role = user.getRole();
     }
 }

@@ -7,6 +7,8 @@ import com.aegis.model.User;
 import com.aegis.repository.UserRepository;
 import com.aegis.response.ResponseAPI;
 import com.aegis.util.PasswordGeneratorUtil;
+import com.aegis.util.mail.EmailDetail;
+import com.aegis.util.mail.MailUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final PasswordGeneratorUtil passwordGeneratorUtil;
+    private final MailUtil mailUtil;
 
     @Override
     public ResponseEntity<ResponseAPI> createUser(CreateUserRequest request) {
@@ -34,13 +37,15 @@ public class UserServiceImpl implements UserService {
 
         user = new User();
         user.setUserId(UUID.randomUUID().toString());
-        user.setFullname(request.getFullName());
+        user.setFullName(request.getFullName());
         user.setEmail(request.getEmail());
-        user.setPassword(bCryptPasswordEncoder.encode(passwordGeneratorUtil.generatePassword(8)));
+        String password = passwordGeneratorUtil.generatePassword(8);
+        user.setPassword(bCryptPasswordEncoder.encode(password));
         user.setRole(request.getRole());
         userRepository.save(user);
 
-        // Kirim email
+        EmailDetail mail = new EmailDetail(password);
+        mailUtil.send(mail);
 
         return new ResponseEntity<>(new ResponseAPI(200, OK, null, new DetailUserResponse(user)), HttpStatus.OK);
     }
@@ -52,7 +57,7 @@ public class UserServiceImpl implements UserService {
             return new ResponseEntity<>(new ResponseAPI(400, "User not found.", null, null), HttpStatus.BAD_REQUEST);
         }
 
-        user.setFullname(request.getFullName());
+        user.setFullName(request.getFullName());
         user.setEmail(request.getEmail());
         userRepository.save(user);
 

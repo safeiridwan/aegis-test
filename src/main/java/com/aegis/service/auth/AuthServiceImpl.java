@@ -7,6 +7,8 @@ import com.aegis.response.ResponseAPI;
 import com.aegis.util.AuthenticationFacade;
 import com.aegis.util.JwtHelperUtil;
 import com.aegis.util.PasswordGeneratorUtil;
+import com.aegis.util.mail.EmailDetail;
+import com.aegis.util.mail.MailUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +33,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     private final AuthenticationFacade authenticationFacade;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final PasswordGeneratorUtil passwordGeneratorUtil;
+    private final MailUtil mailUtil;
     @Override
     public ResponseEntity<ResponseAPI> login(LoginRequest request) {
         User user = userRepository.findByEmail(request.getEmail());
@@ -64,10 +67,12 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
             return new ResponseEntity<>(new ResponseAPI(403, UNAUTHORIZED_ERROR, null, null), HttpStatus.UNAUTHORIZED);
         }
 
-        user.setPassword(bCryptPasswordEncoder.encode(passwordGeneratorUtil.generatePassword(8)));
+        String password = passwordGeneratorUtil.generatePassword(8);
+        user.setPassword(bCryptPasswordEncoder.encode(password));
         userRepository.save(user);
 
-        // Kirim email
+        EmailDetail mail = new EmailDetail(password);
+        mailUtil.send(mail);
 
         return new ResponseEntity<>(new ResponseAPI(200, OK, null, null), HttpStatus.OK);
     }
