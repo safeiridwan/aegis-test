@@ -6,5 +6,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface AuthService {
     ResponseEntity<ResponseAPI> login(LoginRequest request);
-    ResponseEntity<ResponseAPI> resetPassword()
+    ResponseEntity<ResponseAPI> resetPassword();
 }

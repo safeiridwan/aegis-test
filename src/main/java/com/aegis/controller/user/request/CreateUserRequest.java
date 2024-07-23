@@ -13,4 +13,6 @@ public class CreateUserRequest {
     @Email(message = "Email pattern not valid.")
     @NotBlank(message = "Email cannot be blank or null.")
     private String email;
+
+    private String role;
 }

@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
         user.setFullname(request.getFullName());
         user.setEmail(request.getEmail());
         user.setPassword(bCryptPasswordEncoder.encode(passwordGeneratorUtil.generatePassword(8)));
+        user.setRole(request.getRole());
         userRepository.save(user);
 
         // Kirim email
