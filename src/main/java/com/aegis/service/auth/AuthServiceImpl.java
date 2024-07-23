@@ -38,8 +38,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
             return new ResponseEntity<>(new ResponseAPI(400, "User not found.", null, null), HttpStatus.BAD_REQUEST);
         }
 
-        BCryptPasswordEncoder b = new BCryptPasswordEncoder();
-        if (!b.matches(request.getPassword(), user.getPassword())) {
+        if (!bCryptPasswordEncoder.matches(request.getPassword(), user.getPassword())) {
             return new ResponseEntity<>(new ResponseAPI(401, "Username or password invalid.", null, null), HttpStatus.UNAUTHORIZED);
         }
 
