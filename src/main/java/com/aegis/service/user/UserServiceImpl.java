@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         EmailDetail mail = new EmailDetail(user.getEmail(), password);
-        mailUtil.sendMail(mail);
+        mailUtil.send(mail);
 
         return new ResponseEntity<>(new ResponseAPI(200, OK, null, new DetailUserResponse(user)), HttpStatus.OK);
     }
