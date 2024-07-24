@@ -72,7 +72,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
         userRepository.save(user);
 
         EmailDetail mail = new EmailDetail(user.getEmail(), password);
-        mailUtil.send(mail);
+        new Thread(mailUtil.send(mail)).start();
 
         return new ResponseEntity<>(new ResponseAPI(200, OK, null, null), HttpStatus.OK);
     }
